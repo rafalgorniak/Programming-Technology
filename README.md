@@ -1,6 +1,6 @@
 # Programming Technology Lab
 
-## Team
+## Team 2022.12
 
 | Name Surname (initials) | GUID                                     |
 | ----------------------- | ---------------------------------------- |
