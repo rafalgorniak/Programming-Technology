@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic", "Logic\Logic.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestData", "TestData\TestData.csproj", "{1C0D2CF3-5CF6-48B9-9C91-03230008F8BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestLogic", "TestLogic\TestLogic.csproj", "{26D7B17A-6E22-41FB-826D-07352D9B6412}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestLogic", "TestLogic\TestLogic.csproj", "{26D7B17A-6E22-41FB-826D-07352D9B6412}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
