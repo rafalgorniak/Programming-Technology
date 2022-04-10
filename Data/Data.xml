@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<data>
+	<books>
+		<book>
+			<book_id>b01</book_id>
+			<title>Les Miserables</title>
+			<author>Victor Hugo</author>
+		</book>
+		<book>
+			<book_id>b02</book_id>
+			<title>Pale Paryz</title>
+			<author>Bruno Jasienski</author>
+		</book>
+		<book>
+			<book_id>b03</book_id>
+			<title>Ulysses</title>
+			<author>James Joyce</author>
+		</book>
+		<book>
+			<book_id>b04</book_id>
+			<title>Der Process</title>
+			<author>Franz Kafka</author>
+		</book>
+	</books>
+	<users>
+		<user>
+			<user_id>u01</user_id>
+			<name>Gaius Julius</name>
+			<surname>Ceasar</surname>
+		</user>
+		<user>
+			<user_id>u02</user_id>
+			<name>Gnaeus Pompeius</name>
+			<surname>Magnus</surname>
+		</user>
+		<user>
+			<user_id>u03</user_id>
+			<name>Marcus Licinius</name>
+			<surname>Crassus</surname>
+		</user>
+	</users>
+	<states>
+		<state>
+			<book_id>b01</book_id>
+			<book_no>b01/1</book_no>
+		</state>
+		<state>
+			<book_id>b01</book_id>
+			<book_no>b01/2</book_no>
+		</state>
+		<state>
+			<book_id>b01</book_id>
+			<book_no>b01/3</book_no>
+		</state>
+		<state>
+			<book_id>b02</book_id>
+			<book_no>b02/1</book_no>
+		</state>
+		<state>
+			<book_id>b03</book_id>
+			<book_no>b03/1</book_no>
+		</state>
+		<state>
+			<book_id>b04</book_id>
+			<book_no>b04/1</book_no>
+		</state>
+		<state>
+			<book_id>b04</book_id>
+			<book_no>b04/2</book_no>
+		</state>
+	</states>
+	<events>
+		<event>
+			<type>rental</type>
+			<user_id>u01</user_id>
+			<book_no>b01/1</book_no>
+		</event>
+	</events>
+</data>
