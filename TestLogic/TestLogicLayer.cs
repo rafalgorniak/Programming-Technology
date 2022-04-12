@@ -27,11 +27,11 @@ namespace TestLogic
         {
             AbstractLogicAPI logicLayer = AbstractLogicAPI.CreateLayer(dataLayer);
             logicLayer.AddElement("b01", "A", "A");
-            dataLayer.ElementExists("b01").Returns(true);
+            dataLayer.BookExists("b01").Returns(true);
             dataLayer.GetElementOccurrences("b01").Returns(new List<string>());
             Assert.ThrowsException<System.InvalidOperationException>(() => logicLayer.AddElement("b01", "A", "A"));
             logicLayer.RemoveElement("b01");
-            dataLayer.ElementExists("b01").Returns(false);
+            dataLayer.BookExists("b01").Returns(false);
             Assert.ThrowsException<System.InvalidOperationException>(() => logicLayer.RemoveElement("b01"));
         }
         [TestMethod]
@@ -39,7 +39,7 @@ namespace TestLogic
         {
             AbstractLogicAPI logicLayer = AbstractLogicAPI.CreateLayer(dataLayer);
             dataLayer.UserExists("u01").Returns(true);
-            dataLayer.ElementExists("b01").Returns(true);
+            dataLayer.BookExists("b01").Returns(true);
             dataLayer.ElementIsAvailable("b01").Returns(false);
             Assert.ThrowsException<System.InvalidOperationException>(() => logicLayer.RentElement("b01", "u01"));
             dataLayer.ElementIsAvailable("b01").Returns(true);
@@ -48,6 +48,7 @@ namespace TestLogic
             logicLayer.ReturnElement("b01", "u01");
             dataLayer.HasBook("b01", "u01").Returns(false);
             Assert.ThrowsException<System.InvalidOperationException>(() => logicLayer.ReturnElement("b01", "u01"));
+            AbstractLogicAPI abstractLogicAPI = AbstractLogicAPI.CreateLayer();
         }
     }
 }

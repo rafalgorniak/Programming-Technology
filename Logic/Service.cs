@@ -5,21 +5,21 @@ namespace Logic
 {
     internal class Service
     {
-        internal void AddElement(string id, string name, string author, AbstractDataAPI dataLayer)
+        internal void AddBook(string id, string name, string author, AbstractDataAPI dataLayer)
         {
-            if (!dataLayer.ElementExists(id)) dataLayer.AddElement(id, name, author);
+            if (!dataLayer.BookExists(id)) dataLayer.AddBook(new Book(id, name, author));
             else throw new System.InvalidOperationException();
         }
 
         internal void AddUser(string id, string name, string surname, AbstractDataAPI dataLayer)
         {
-            if (!dataLayer.UserExists(id)) dataLayer.AddUser(id, name, surname);
+            if (!dataLayer.UserExists(id)) dataLayer.AddUser(new User(id, name, surname));
             else throw new System.InvalidOperationException();
         }
 
-        internal void RemoveElement(string id, AbstractDataAPI dataLayer)
+        internal void RemoveBook(string id, AbstractDataAPI dataLayer)
         {
-            if (dataLayer.ElementExists(id))
+            if (dataLayer.BookExists(id))
             {
                 List<string> elements = dataLayer.GetElementOccurrences(id);
                 foreach (string element in elements)
@@ -39,11 +39,11 @@ namespace Logic
 
         internal void RentElement(string elementId, string userId, AbstractDataAPI dataLayer)
         {
-            if (dataLayer.ElementExists(elementId) && dataLayer.ElementIsAvailable(elementId) 
+            if (dataLayer.BookExists(elementId) && dataLayer.ElementIsAvailable(elementId) 
                 && dataLayer.UserExists(userId))
             {
-                dataLayer.RentElement(elementId, userId);
-                dataLayer.MakeElementAvailable(dataLayer.WhichBookHas(elementId, userId), false);
+                dataLayer.RentElement(new Rental(dataLayer.GetUser(userId), dataLayer.WhichBookIsAvailable(elementId)));
+                dataLayer.MakeBookAvailable(dataLayer.WhichBookHas(elementId, userId), false);
             }
             else throw new System.InvalidOperationException();
         }
@@ -52,9 +52,8 @@ namespace Logic
         {
             if ( dataLayer.UserExists(userId) && dataLayer.HasBook(elementId, userId))
             {
-                string elementNo = dataLayer.WhichBookHas(elementId, userId);
-                dataLayer.ReturnElement(elementNo, userId);
-                dataLayer.MakeElementAvailable(elementNo, true);
+                dataLayer.MakeBookAvailable(dataLayer.WhichBookHas(elementId, userId), true);
+                dataLayer.ReturnElement(new Return(dataLayer.GetUser(userId), dataLayer.WhichBookHas(elementId, userId)));
             }
             else throw new System.InvalidOperationException();
         }

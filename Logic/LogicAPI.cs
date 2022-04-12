@@ -16,7 +16,7 @@ namespace Logic
 
             public override void AddElement(string id, string name, string author)
             {
-                service.AddElement(id, name, author, dataLayer);
+                service.AddBook(id, name, author, dataLayer);
             }
 
             public override void AddUser(string id, string name, string surname)
@@ -26,7 +26,7 @@ namespace Logic
 
             public override void RemoveElement(string id)
             {
-                service.RemoveElement(id, dataLayer);
+                service.RemoveBook(id, dataLayer);
             }
 
             public override void RemoveUser(string id)
@@ -45,9 +45,9 @@ namespace Logic
             }
         }
 
-        public static AbstractLogicAPI CreateLayer(AbstractDataAPI dataLayer)
+        public static AbstractLogicAPI CreateLayer(AbstractDataAPI dataLayer = default(AbstractDataAPI))
         {
-            return new LogicLayer(dataLayer);
+            return new LogicLayer(dataLayer == null ? AbstractDataAPI.CreateDataLayer() : dataLayer);
         }
 
         public abstract void AddElement(string id, string name, string author);

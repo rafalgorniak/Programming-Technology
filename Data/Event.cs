@@ -1,29 +1,12 @@
 ﻿namespace Data
 {
-    internal abstract class Event
+    public interface IEvent
     {
-        protected State state;
-        protected User user;
-        internal string BookId => state.BookId;
-        internal string UserId => user.Id;
-        internal State State => state;
+        IUser User { get; }
+        IState State { get; }
     }
 
-    internal class Rental : Event
-    {
-        internal Rental(State state, User user)
-        {
-            this.state = state;
-            this.user = user;
-        }
-    }
+    public interface IRental : IEvent { }
 
-    internal class Return : Event
-    {
-        internal Return(State state, User user)
-        {
-            this.state = state;
-            this.user = user;
-        }
-    }
+    public interface IReturn : IEvent { }
 }

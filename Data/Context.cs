@@ -5,37 +5,33 @@ namespace Data
 {
     internal class Context
     {
-        private Dictionary<string, Book> books;
-        private List<User> users;
-        private List<State> states;
-        private List<Event> events;
+        private Dictionary<string, IBook> books;
+        private List<IUser> users;
+        private List<IState> states;
+        private List<IEvent> events;
 
-        public Context(List<Book> books, List<User> users, List<State> states, List<Event> events)
+        internal Context(Dictionary<string, IBook> books, List<IUser> users, 
+                       List<IState> states, List<IEvent> events)
         {
-            this.books = new Dictionary<string, Book>();
+            this.books = books;
             this.users = users;
             this.states = states;
             this.events = events;
-            foreach (Book book in books)
-            {
-                this.books.Add(book.Id, book);
-            }
         }
 
-        internal void AddBook(string id, string title, string author)
+        internal void AddBook(IBook book)
         {
-            Book book = new Book(id, title, author);
             books.Add(book.Id, book);
         }
 
-        internal void addBookOccurrence(string bookNo, string id)
+        internal void addBookOccurrence(IState state)
         {
-            states.Add(new State(bookNo, books[id]));
+            states.Add(state);
         }
 
         internal void removeBookOccurence(string bookNo)
         {
-            foreach (State state in states)
+            foreach (IState state in states)
             {
                 if (state.BookNo == bookNo)
                 {
@@ -47,25 +43,42 @@ namespace Data
         internal List<string> getBookOccurrences(string id)
         {
             List<string> result = new List<string>();
-            foreach (State state in states)
+            foreach (IState state in states)
             {
-                if(state.BookId == id)
+                if(state.Book.Id == id)
                 {
                     result.Add(state.BookNo);
                 }
             }
             return result;
         }
-        internal void AddUser(string id, string name, string surname)
+        internal void AddUser(IUser user)
         {
-            users.Add(new User(id, name, surname));
+            users.Add(user);
         }
 
-        internal User GetUser(string id)
+        internal IUser GetUser(string id)
         {
-            foreach (User user in users)
+            foreach (IUser user in users)
             {
                 if (user.Id == id) return user;
+            }
+            return null;
+        }
+
+        internal IBook GetBook(string id) 
+        {
+            return books[id]; 
+        }
+
+        internal IState GetState(string no)
+        {
+            foreach (IState state in states)
+            {
+                if(state.BookNo == no)
+                {
+                    return state;
+                }
             }
             return null;
         }
@@ -74,9 +87,10 @@ namespace Data
         {
             books.Remove(id);
         }
+
         internal void RemoveUser(string id)
         {
-            foreach (User user in users)
+            foreach (IUser user in users)
             {
                 if (user.Id == id)
                 {
@@ -89,9 +103,10 @@ namespace Data
         {
             return books.ContainsKey(id);
         }
+
         internal bool UserExists(string id)
         {
-            foreach (User user in users)
+            foreach (IUser user in users)
             {
                 if (user.Id == id) return true;
             }
@@ -100,9 +115,9 @@ namespace Data
 
         internal bool BookIsAvailible(string id)
         {
-            foreach (State state in states)
+            foreach (IState state in states)
             {
-                if (state.BookId == id && state.IsAvailible)
+                if (state.Book.Id == id && state.Available)
                 {
                     return true;
                 }
@@ -110,63 +125,57 @@ namespace Data
             return false;
         }
 
-        internal void MakeBookAvailable(string bookNo, bool available)
+        internal void MakeBookAvailable(IState state, bool available)
         {
-            foreach (State state in states)
-            {
-                if (state.BookNo == bookNo)
-                {
-                    state.MakeAvailable(available);
-                    break;
-                }
-            }
+            state.Available = available;
         }
 
-        internal void RentBook(string bookId, string userId)
+        internal void RentBook(IRental rental)
         {
-            foreach (State state in states)
-            {
-                if (state.BookId == bookId)
-                {
-                    events.Add(new Rental(state, GetUser(userId)));
-                    break;
-                }
-            }
+            events.Add(rental);
         }
 
-        internal void ReturnBook(string bookNo, string userID)
+        internal void ReturnBook(IReturn @return)
         {
-            foreach (State state in states)
-            {
-                if (state.BookNo == bookNo)
-                {
-                    events.Add(new Return(state, GetUser(userID)));
-                }
-            }
+            events.Add(@return);
         }
 
-        internal bool HasBook(string bookID, string userID)
+        internal bool HasBook(string bookId, string userId)
         {
+            if(events.OfType<IRental>() == null) return false;
+            if (events.OfType<IReturn>() == null) return false;
             int rentals = 0;
             int returns = 0;
-            foreach (Rental rental in events.OfType<Rental>())
+            foreach (IRental rental in events.OfType<IRental>())
             {
-                if (rental.BookId == bookID && rental.UserId == userID) rentals++;
+                if (rental.State.Book.Id == bookId && rental.User.Id == userId) rentals++;
             }
-            foreach (Return @return in events.OfType<Return>())
+            foreach (IReturn @return in events.OfType<IReturn>())
             {
-                if (@return.BookId == bookID && @return.UserId == userID) returns++;
+                if (@return.State.Book.Id == bookId && @return.User.Id == userId) returns++;
             }
             return rentals != returns;
         }
 
-        internal string WhichBookHas(string bookId, string userId)
+        internal IState WhichBookHas(string bookId, string userId)
         {
-            foreach (Rental rental in events.OfType<Rental>())
+            foreach (IRental rental in events.OfType<IRental>())
             {
-                if (rental.BookId == bookId && rental.UserId == userId && !rental.State.IsAvailible)
+                if (rental.State.Book.Id == bookId && rental.User.Id == userId && !rental.State.Available)
                 {
-                    return rental.State.BookNo;
+                    return rental.State;
+                }
+            }
+            return null;
+        }
+
+        internal IState WhichBookIsAvailable(string bookId)
+        {
+            foreach (IState state in states)
+            {
+                if (state.Book.Id == bookId && state.Available)
+                {
+                    return state;
                 }
             }
             return null;
