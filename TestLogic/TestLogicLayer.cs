@@ -48,7 +48,11 @@ namespace TestLogic
             logicLayer.ReturnElement("b01", "u01");
             dataLayer.HasBook("b01", "u01").Returns(false);
             Assert.ThrowsException<System.InvalidOperationException>(() => logicLayer.ReturnElement("b01", "u01"));
-            AbstractLogicAPI abstractLogicAPI = AbstractLogicAPI.CreateLayer();
+        }
+        [TestMethod]
+        public void TestDeafultDataLayer()
+        {
+            AbstractLogicAPI logicLayer = AbstractLogicAPI.CreateLayer();
         }
     }
 }
