@@ -1,7 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net4.8</TargetFramework>
+	  <LangVersion>10</LangVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System.Data.Linq" />
+  </ItemGroup>
+
+	<ItemGroup>
+    <None Update="Catalog.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>Catalog.designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Catalog.designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Catalog.dbml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 
 </Project>

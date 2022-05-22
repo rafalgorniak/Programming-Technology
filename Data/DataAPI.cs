@@ -1,134 +1,69 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace Data
+namespace Data.API
 {
-    public abstract class AbstractDataAPI
+    public interface IRepository
     {
-        private Repository repository;
+        Task<IBook> GetBook(int id);
+        Task<IEnumerable<IBook>> GetBooks();
+        Task AddBook(int id, string title, string author);
+        Task UpdateBook(int id, string title, string author);
+        Task DeleteBook(int id);
+        Task<IState> GetState(int id);
+        Task<IEnumerable<IState>> GetBookStates(int id);
+        Task<IEnumerable<IState>> GetStates();
+        Task AddState(int id, int book_id, string available);
+        Task UpdateState(int id, int book_id, string available);
+        Task DeleteState(int id);
+        Task<IUser> GetUser(int id);
+        Task<IEnumerable<IUser>> GetUsers();
+        Task AddUser(int id, string name, string surname);
+        Task UpdateUser(int id, string name, string surname);
+        Task DeleteUser(int id);
+        Task<IEvent> GetEvent(int id);
+        Task<IEnumerable<IEvent>> GetStateEvents(int id);
+        Task<IEnumerable<IEvent>> GetUserEvents(int id);
+        Task<IEnumerable<IEvent>> GetEvents();
+        Task AddEvent(int id, int state_id, int user_id, string type);
+        Task UpdateEvent(int id, int state_id, int user_id, string type);
+        Task DeleteEvent(int id); 
+    }
 
-        private class DataLayer : AbstractDataAPI
+    public abstract class DataRepositoryFactory
+    {
+        public static IRepository CreateRepository()
         {
-            public DataLayer(IInitialiser initialiser)
-            {
-                repository = new Repository(initialiser);
-            }
-
-            public override void AddBook(IBook book)
-            {
-                repository.Context.AddBook(book);
-            }
-            public override void AddUser(IUser user)
-            {
-                repository.Context.AddUser(user);
-            }
-
-            public override bool BookExists(string id)
-            {
-                return repository.Context.BookExists(id);
-            }
-
-            public override bool ElementIsAvailable(string id)
-            {
-                return repository.Context.BookIsAvailible(id);
-            }
-
-            public override void RemoveElement(string id)
-            {
-                repository.Context.RemoveBook(id);
-            }
-
-            public override void RemoveUser(string id)
-            {
-                repository.Context.RemoveUser(id);
-            }
-
-            public override void RentElement(IRental rental)
-            {
-                repository.Context.RentBook(rental);
-            }
-
-            public override void ReturnElement(IReturn @return)
-            {
-                repository.Context.ReturnBook(@return);
-            }
-
-            public override bool UserExists(string id)
-            {
-                return repository.Context.UserExists(id);
-            }
-            public override bool HasBook(string bookId, string userId)
-            {
-                return repository.Context.HasBook(bookId, userId);
-            }
-
-            public override void MakeBookAvailable(IState state, bool available)
-            {
-                repository.Context.MakeBookAvailable(state, available);
-            }
-
-            public override void AddElementOccurrence(IState state)
-            {
-                repository.Context.addBookOccurrence(state);
-            }
-
-            public override void RemoveElementOccurrence(string bookNo)
-            {
-                repository.Context.removeBookOccurence(bookNo);
-            }
-
-            public override List<string> GetElementOccurrences(string id)
-            {
-                return repository.Context.getBookOccurrences(id);
-            }
-            public override IState WhichBookHas(string bookId, string userId)
-            {
-                return repository.Context.WhichBookHas(bookId, userId);
-            }
-
-            public override IState WhichBookIsAvailable(string bookId)
-            {
-                return repository.Context.WhichBookIsAvailable(bookId);
-            }
-
-            public override IState GetState(string no)
-            {
-                return repository.Context.GetState(no);
-            }
-
-            public override IBook GetBook(string id)
-            {
-                return repository.Context.GetBook(id);
-            }
-
-            public override IUser GetUser(string id)
-            {
-                return repository.Context.GetUser(id);
-            }
+            return new Repository();
         }
+    }
 
-        public static AbstractDataAPI CreateDataLayer(IInitialiser initialiser = default(EmptyInitialiser))
-        {
-            return new DataLayer(initialiser == null ? new EmptyInitialiser() : initialiser);
-        }
+    public interface IBook
+    {
+        int id { get; set; }
+        string title { get; set; }
+        string author { get; set; }
+    }
 
-        public abstract void AddBook(IBook book);
-        public abstract void RemoveElement(string id);
-        public abstract void AddElementOccurrence(IState state);
-        public abstract void RemoveElementOccurrence(string bookNo);
-        public abstract List<string> GetElementOccurrences(string id);
-        public abstract bool BookExists(string id);
-        public abstract void AddUser(IUser user);
-        public abstract void RemoveUser(string id);
-        public abstract bool UserExists(string id);
-        public abstract bool ElementIsAvailable(string id);
-        public abstract void MakeBookAvailable(IState state, bool available);
-        public abstract void RentElement(IRental rental);
-        public abstract void ReturnElement(IReturn @return);
-        public abstract bool HasBook(string bookId, string userId);
-        public abstract IState WhichBookHas(string bookId, string userId);
-        public abstract IState WhichBookIsAvailable(string bookId);
-        public abstract IState GetState(string no);
-        public abstract IBook GetBook(string id);
-        public abstract IUser GetUser(string id);
+    public interface IState
+    {
+        int id { get; set; }
+        int book_id { get; set; }
+        string available { get; set; }
+    }
+
+    public interface IUser
+    {
+        int id { get; set; }
+        string name { get; set; }
+        string surname { get; set; }
+    }
+
+    public interface IEvent
+    {
+        int id { get; set; }
+        int state_id { get; set; }
+        int user_id { get; set; }
+        string type { get; set; }
     }
 }

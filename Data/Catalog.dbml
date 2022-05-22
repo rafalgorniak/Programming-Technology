@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Library" Class="CatalogDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.users" Member="users">
+    <Type Name="user">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="surname" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="user_event" Member="events" ThisKey="id" OtherKey="user_id" Type="event" />
+    </Type>
+  </Table>
+  <Table Name="dbo.states" Member="states">
+    <Type Name="state">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="book_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="available" Type="System.String" DbType="VarChar(1) NOT NULL" CanBeNull="false" />
+      <Association Name="state_event" Member="events" ThisKey="id" OtherKey="state_id" Type="event" />
+      <Association Name="book_state" Member="book" ThisKey="book_id" OtherKey="id" Type="book" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.events" Member="events">
+    <Type Name="event">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="state_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="user_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="type" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="state_event" Member="state" ThisKey="state_id" OtherKey="id" Type="state" IsForeignKey="true" />
+      <Association Name="user_event" Member="user" ThisKey="user_id" OtherKey="id" Type="user" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.books" Member="books">
+    <Type Name="book">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="author" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="book_state" Member="states" ThisKey="id" OtherKey="book_id" Type="state" />
+    </Type>
+  </Table>
+</Database>

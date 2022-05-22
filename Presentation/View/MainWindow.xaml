@@ -1,0 +1,225 @@
+﻿<Window x:Class="Presentation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Presentation" d:DataContext="{d:DesignInstance Type=local:ViewModel}"
+        mc:Ignorable="d"
+        Title="LibrarySystem" Height="400" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ComboBox Margin = "5" ItemsSource="{Binding Path=ModelBooks}"
+                  DisplayMemberPath="title" SelectedItem="{Binding Path=SelectedBook}"
+                  Grid.ColumnSpan="3"/>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Margin="5" Text="Book ID: "/>
+            <TextBox Grid.Column="1" Margin="5" Text="{Binding Path=SelectedBook.id}"/>
+            <Button Content="Add" Grid.ColumnSpan="2" Grid.Row="1" Margin="5"
+                    Command="{Binding Path=AddBookCommandProperty}"/>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Margin="5" Text="Title: "/>
+            <TextBox Grid.Column="1" Margin="5" Text="{Binding Path=SelectedBook.title}"/>
+            <Button Content="Update" Grid.ColumnSpan="2" Grid.Row="1" Margin="5" 
+                    Command="{Binding Path=UpdateBookCommandProperty}"/>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Margin="5" Text="Author: "/>
+            <TextBox Grid.Column="1" Margin="5" Text="{Binding Path=SelectedBook.author}"/>
+            <Button Content="Delete" Grid.ColumnSpan="2" Grid.Row="1" Margin="5" 
+                    Command="{Binding Path=DeleteBookCommandProperty}"/>
+        </Grid>
+        
+        <ComboBox Grid.Row="2" Margin = "5" ItemsSource="{Binding Path=ModelStates}"
+                  DisplayMemberPath="id" SelectedItem="{Binding Path=SelectedState}"
+                  Grid.ColumnSpan="3"/>
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Margin="5" Text="State ID: "/>
+            <TextBox Grid.Column="1" Margin="5" Text="{Binding Path=SelectedState.id}"/>
+            <Button Content="Add" Grid.ColumnSpan="2" Grid.Row="1" Margin="5"
+                    Command="{Binding Path=AddStateCommandProperty}"/>
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Margin="5" Text="Book ID: "/>
+            <TextBox Grid.Column="1" Margin="5" Text="{Binding Path=SelectedState.book_id}"/>
+            <Button Content="Update" Grid.ColumnSpan="2" Grid.Row="1" Margin="5" 
+                    Command="{Binding Path=UpdateStateCommandProperty}"/>
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Margin="5" Text="Available: "/>
+            <TextBox Grid.Column="1" Margin="5" Text="{Binding Path=SelectedState.available}"/>
+            <Button Content="Delete" Grid.ColumnSpan="2" Grid.Row="1" Margin="5" 
+                    Command="{Binding Path=DeleteStateCommandProperty}"/>
+        </Grid>
+        
+        <ComboBox Grid.Row="4" Margin = "5" ItemsSource="{Binding Path=ModelUsers}"
+                  DisplayMemberPath="surname" SelectedItem="{Binding Path=SelectedUser}"
+                  Grid.ColumnSpan="3"/>
+        <Grid Grid.Row="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Margin="5" Text="User ID: "/>
+            <TextBox Grid.Column="1" Margin="5" Text="{Binding Path=SelectedUser.id}"/>
+            <Button Content="Add" Grid.ColumnSpan="2" Grid.Row="1" Margin="5"
+                    Command="{Binding Path=AddUserCommandProperty}"/>
+        </Grid>
+        <Grid Grid.Row="5" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Margin="5" Text="Name: "/>
+            <TextBox Grid.Column="1" Margin="5" Text="{Binding Path=SelectedUser.name}"/>
+            <Button Content="Update" Grid.ColumnSpan="2" Grid.Row="1" Margin="5" 
+                    Command="{Binding Path=UpdateUserCommandProperty}"/>
+        </Grid>
+        <Grid Grid.Row="5" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Margin="5" Text="Surname: "/>
+            <TextBox Grid.Column="1" Margin="5" Text="{Binding Path=SelectedUser.surname}"/>
+            <Button Content="Delete" Grid.ColumnSpan="2" Grid.Row="1" Margin="5" 
+                    Command="{Binding Path=DeleteUserCommandProperty}"/>
+        </Grid>
+        
+        <ComboBox Grid.Row="6" Margin = "5" ItemsSource="{Binding Path=ModelEvents}"
+                  DisplayMemberPath="id" SelectedItem="{Binding Path=SelectedEvent}"
+                  Grid.ColumnSpan="3"/>
+        <Grid Grid.Row="7" Grid.ColumnSpan="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.ColumnSpan="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Margin="5" Text="Event ID: "/>
+                <TextBox Grid.Column="1" Margin="5" Text="{Binding Path=SelectedEvent.id}"/>
+            </Grid>
+            <Grid Grid.Column="3" Grid.ColumnSpan="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Margin="5" Text="State ID: "/>
+                <TextBox Grid.Column="1" Margin="5" Text="{Binding Path=SelectedEvent.state_id}"/>
+            </Grid>
+            <Grid Grid.Column="6" Grid.ColumnSpan="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Margin="5" Text="User ID: "/>
+                <TextBox Grid.Column="1" Margin="5" Text="{Binding Path=SelectedEvent.user_id}"/>
+            </Grid>
+            <Grid Grid.Column="9" Grid.ColumnSpan="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Margin="5" Text="Event type: "/>
+                <TextBox Grid.Column="1" Margin="5" Text="{Binding Path=SelectedEvent.type}"/>
+            </Grid>
+            <Button Content="Add" Grid.ColumnSpan="4" Grid.Row="1" Margin="5" 
+                    Command="{Binding Path=AddEventCommandProperty}"/>
+            <Button Content="Update" Grid.Column="4" Grid.ColumnSpan="4" Grid.Row="1" Margin="5" 
+                    Command="{Binding Path=UpdateEventCommandProperty}"/>
+            <Button Content="Delete" Grid.Column="8"  Grid.ColumnSpan="4" Grid.Row="1" Margin="5" 
+                    Command="{Binding Path=DeleteEventCommandProperty}"/>
+        </Grid>
+    </Grid>
+</Window>
