@@ -163,6 +163,7 @@ namespace Data
         public async Task DeleteEvent(int id)
         {
             await Task.Run(() => context.events.DeleteOnSubmit(context.events.Where(e => e.id == id).FirstOrDefault()));
+            await Task.Run(() => context.SubmitChanges());
         }
     }
 }

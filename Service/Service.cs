@@ -108,7 +108,7 @@ namespace Service
             {
                 throw new ArgumentException("User with given id does not exist");
             }
-            await Task.Run(() => repository.UpdateBook(id, name, surname));
+            await Task.Run(() => repository.UpdateUser(id, name, surname));
         }
         public async Task DeleteUser(int id)
         {
@@ -120,7 +120,7 @@ namespace Service
             {
                 throw new ArgumentException("User with given id has events");
             }
-            await Task.Run(() => repository.DeleteBook(id));
+            await Task.Run(() => repository.DeleteUser(id));
         }
 
         public async Task<IEnumerable<IModelEvent>> GetEvents()
@@ -161,7 +161,7 @@ namespace Service
         }
         public async Task DeleteEvent(int id)
         {
-            if (await Task.Run(() => repository.GetUser(id)) == null)
+            if (await Task.Run(() => repository.GetEvent(id)) == null)
             {
                 throw new ArgumentException("Event with given id does not exist");
             }

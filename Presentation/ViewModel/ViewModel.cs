@@ -461,8 +461,8 @@ namespace Presentation
             }
         }
 
-        private DeleteBookCommand deleteStateCommand;
-        public DeleteBookCommand DeleteStateCommandProperty => deleteStateCommand;
+        private DeleteStateCommand deleteStateCommand;
+        public DeleteStateCommand DeleteStateCommandProperty => deleteStateCommand;
         public class DeleteStateCommand : ICommand
         {
             private ViewModel viewModel;
