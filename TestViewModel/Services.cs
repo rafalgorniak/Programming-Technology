@@ -10,7 +10,7 @@ namespace TestViewModel
         private List<TestingUser> users = new();
         private List<TestingEvent> events = new();
 
-        public FirstTestingService()
+        internal FirstTestingService()
         {
             for(int i = 1; i < 10; i++)
             {
@@ -60,37 +60,37 @@ namespace TestViewModel
 
         public Task AddEvent(int id, int state_id, int user_id, string type)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task AddState(int id, int book_id, string available)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task AddUser(int id, string name, string surname)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task DeleteBook(int id)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task DeleteEvent(int id)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task DeleteState(int id)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task DeleteUser(int id)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public async Task<IEnumerable<IModelBook>> GetBooks()
@@ -115,22 +115,120 @@ namespace TestViewModel
 
         public Task UpdateBook(int id, string title, string author)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task UpdateEvent(int id, int state_id, int user_id, string type)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task UpdateState(int id, int book_id, string available)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
         public Task UpdateUser(int id, string name, string surname)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
+        }
+    }
+
+    internal class SecondTestingService : IService
+    {
+        private List<TestingBook> books = new();
+        private List<TestingState> states = new();
+        private List<TestingUser> users = new();
+        private List<TestingEvent> events = new();
+
+        internal SecondTestingService()
+        {
+
+        }
+
+        internal List<TestingBook> Books { set { books = value; } }
+        internal List<TestingState> States { set { states = value; } }
+        internal List<TestingUser> Users { set { users = value; } }
+        internal List <TestingEvent> Events { set { events = value; } }
+
+        public Task AddBook(int id, string title, string author)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task AddEvent(int id, int state_id, int user_id, string type)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task AddState(int id, int book_id, string available)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task AddUser(int id, string name, string surname)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task DeleteBook(int id)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task DeleteEvent(int id)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task DeleteState(int id)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task DeleteUser(int id)
+        {
+            return Task.CompletedTask;
+        }
+
+        public async Task<IEnumerable<IModelBook>> GetBooks()
+        {
+            return books;
+        }
+
+        public async Task<IEnumerable<IModelEvent>> GetEvents()
+        {
+            return events;
+        }
+
+        public async Task<IEnumerable<IModelState>> GetStates()
+        {
+            return states;
+        }
+
+        public async Task<IEnumerable<IModelUser>> GetUsers()
+        {
+            return users;
+        }
+
+        public Task UpdateBook(int id, string title, string author)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task UpdateEvent(int id, int state_id, int user_id, string type)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task UpdateState(int id, int book_id, string available)
+        {
+            return Task.CompletedTask;
+        }
+
+        public Task UpdateUser(int id, string name, string surname)
+        {
+            return Task.CompletedTask;
         }
     }
 }

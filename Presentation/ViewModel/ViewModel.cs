@@ -36,6 +36,7 @@ namespace Presentation
             Task.Run(() => RefreshUsers());
             Thread.Sleep(100);
             Task.Run(() => RefreshEvents());
+            Thread.Sleep(100);
         }
 
         #region modelBooks

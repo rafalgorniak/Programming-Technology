@@ -12,7 +12,16 @@ namespace Data
 
         internal Repository()
         {
-            context = new CatalogDataContext(connectionString);
+            try
+            {
+                context = new CatalogDataContext(connectionString);
+                context.books.Count();
+            }
+            catch(System.Exception)
+            {
+                throw new System.ArgumentException("Error occured during conncetion to the server. \n'" 
+                                                   + connectionString + "' may not be a valid connection string.");
+            }
         }
 
 
