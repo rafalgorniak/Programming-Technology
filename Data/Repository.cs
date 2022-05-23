@@ -17,7 +17,7 @@ namespace Data
                 context = new CatalogDataContext(connectionString);
                 context.books.Count();
             }
-            catch(System.Exception)
+            catch(System.Data.SqlClient.SqlException)
             {
                 throw new System.ArgumentException("Error occured during conncetion to the server. \n'" 
                                                    + connectionString + "' may not be a valid connection string.");
