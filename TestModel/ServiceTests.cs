@@ -21,6 +21,10 @@ namespace TestModel
             repository.GetBook(1).Returns(new TestingBook());
             service.UpdateBook(1, "b", "b");
             service.DeleteBook(1);
+            service.AddBook(2, "c", "c");
+            repository.GetBook(2).Returns(new TestingBook());
+            service.UpdateBook(2, "d", "d");
+            service.DeleteBook(2);
         }
         [TestMethod]
         public void TestStates()
